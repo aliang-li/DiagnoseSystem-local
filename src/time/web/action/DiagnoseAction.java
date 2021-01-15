@@ -188,6 +188,11 @@ public class DiagnoseAction extends ActionSupport implements ServletRequestAware
 		User user = (User) request.getSession().getAttribute("user");
 		String typeName = (String) request.getSession().getAttribute("typeName");
 		String resultDir = "D:/lzl/diagnose/result/"+typeName+"/"+ user.getLoginname();
+		
+		if(typeName.equalsIgnoreCase("intestineSegment")) {
+			resultDir = "D:/nii/nii2jpg/merge/jpgImage";
+		}
+		
 		DiagnoseService diagnose = new DiagnoseServiceImp();
 		diagnose.scanDcm(resultDir,request,response);
 		return null;
@@ -199,7 +204,14 @@ public class DiagnoseAction extends ActionSupport implements ServletRequestAware
 		
 		System.out.println(pictureName + "in pcitureTransport()");
 		
-		FileInputStream fileInputStream = new FileInputStream("D:/lzl/diagnose/result/"+typeName+"/"+ user.getLoginname()+ "/" + pictureName);
+		
+		FileInputStream fileInputStream = null;
+		if(typeName.equalsIgnoreCase("intestineSegment")) {
+			fileInputStream = new FileInputStream("D:/nii/nii2jpg/merge/jpgImage"+ "/" + pictureName);
+		}else {
+			fileInputStream = new FileInputStream("D:/lzl/diagnose/result/"+typeName+"/"+ user.getLoginname()+ "/" + pictureName);
+		}
+		
 		int size = fileInputStream.available();
 		byte[] data = new byte[size];
 		fileInputStream.read(data);

@@ -137,10 +137,10 @@ body {
 .STYLE1 {	font-size: 26px;
 	font-family: Microsoft YaHei;
 	color: rgb( 251, 247, 247 );
-	line-height: 1.278;
+	line-height: 1.0;
 	position: absolute;
 	left: 153px;
-	top: 25px;
+	top: 18px;
 	z-index: 15;
 	width: 293px;
 	height: 55px;
@@ -175,12 +175,12 @@ a:hover{text-decoration:underline; color:#3EAA42;}
         </script>
 <body>
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td height="101" colspan="3" bordercolor="#000000" bgcolor="#000000"><table width="408" height="100" border="0" cellpadding="0" cellspacing="0">
+ <tr>
+    <td height="85" colspan="3" bordercolor="#000000" bgcolor="#000000"><table width="408" height="85" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="66" align="center">&nbsp;</td>
-        <td width="91" align="center"><img src="../images/logo.png" width="80" height="82" /></td>
-        <td width="251" align="center"><span class="STYLE1">大智慧医疗辅助诊断平台<span class="STYLE2"> Great Wisdom Medical Aided Diagnosis Platform</span></span></td>
+        <td width="91" align="center"><img src="../images/logo.png" width="80" height="80" /></td>
+        <td width="251" align="center"><span class="STYLE1">大智慧医疗辅助诊断平台<span class="STYLE2" style="font-size:12px"> Great Wisdom Medical Aided Diagnosis Platform</span></span></td>
       </tr>
       
     </table></td>
@@ -214,7 +214,7 @@ a:hover{text-decoration:underline; color:#3EAA42;}
         <div class="sk-circle11 sk-circle"></div>
         <div class="sk-circle12 sk-circle"></div>
       </div>
-      <div align="center" style="font-size: 30px"><span>诊断中，预计诊断时间为${sessionScope.typeName=="intestineDetection"?"30 秒":sessionScope.typeName=="facialDetection"?"2分钟 ":sessionScope.typeName=="lymphomaDetection"?"30 秒":"5分钟 "}</span></div></td>
+      <div align="center" style="font-size: 30px"><span>诊断中，预计诊断时间为${sessionScope.typeName=="intestineDetection"?"30 秒":sessionScope.typeName=="facialDetection"?"2分钟 ":"5分钟 "}</span></div></td>
       </tr>
     </table></td>
   </tr>

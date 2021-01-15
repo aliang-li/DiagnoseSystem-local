@@ -30,6 +30,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.struts2.ServletActionContext;
@@ -292,7 +293,11 @@ public class DiagnoseServiceImp implements DiagnoseService {
 				}
 			}
 		}	
-		System.out.println("picture()中urlList.size() = " + urlList.size());
+		HttpSession session = request.getSession();
+		String typeName = (String)session.getAttribute("typeName");
+		if(typeName.equals("intestineSegment")) {
+			urlList.sort((s1,s2) ->  new Integer(Integer.parseInt(s1.split("\\.")[0])).compareTo(new Integer(Integer.parseInt(s2.split("\\.")[0]))));
+		}
 		request.setAttribute("url", urlList);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("../diagnose/picture.jsp");
 		requestDispatcher.forward(request, response);

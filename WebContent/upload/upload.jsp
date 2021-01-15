@@ -8,7 +8,11 @@
 <link rel="stylesheet" type="text/css" href="Huploadify.css"/>
 <link rel="stylesheet" type="text/css" href="webuploader.css" />
 <link rel="stylesheet" type="text/css" href="style.css" />
-
+<link rel="stylesheet" type="text/css" href="plugin/sweetalert2/dist/sweetalert2.min.css">
+<link href="http://at.alicdn.com/t/font_1551254_sk7y2quxfyq.css" rel="stylesheet" type="text/css" />
+<script src="plugin/sweetalert2/dist/sweetalert2.min.js"></script>
+<!-- for IE support -->
+<!-- <script src="path/to/es6-promise/promise.min.js"></script>    -->
 <style>
 body {
 	margin-left: 0px;
@@ -18,10 +22,10 @@ body {
 .STYLE1 {	font-size: 26px;
 	font-family: Microsoft YaHei;
 	color: rgb( 251, 247, 247 );
-	line-height: 1.278;
+	line-height: 1.0;
 	position: absolute;
 	left: 153px;
-	top: 25px;
+	top: 18px;
 	z-index: 15;
 	width: 293px;
 	height: 55px;
@@ -41,9 +45,20 @@ a:hover{text-decoration:underline; color:#3EAA42;}
 .width_auto{
 	width: 750px;
 }
+.swal2-container{
+	position:absolute;
+}
+body.swal2-toast-shown .swal2-container.swal2-bottom {
+    top: auto;
+    right: auto;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 </style>
 <script src="jquery-1.11.3.js" type="text/javascript"></script>
 <script src="jquery.js" type="text/javascript"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
 <script src="plugin/jszip.js"></script>
 <script src="plugin/jszip-utils.js"></script>
 <script src="jquery.Huploadify.js" type="text/javascript"></script>
@@ -53,11 +68,11 @@ a:hover{text-decoration:underline; color:#3EAA42;}
 <!--  <form action="uploads" method="post" enctype="multipart/form-data"> -->
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td height="101" colspan="3" bordercolor="#000000" bgcolor="#000000"><table width="408" height="100" border="0" cellpadding="0" cellspacing="0">
+    <td height="85" colspan="3" bordercolor="#000000" bgcolor="#000000"><table width="408" height="85" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="66" align="center">&nbsp;</td>
-        <td width="91" align="center"><img src="../images/logo.png" width="80" height="82" /></td>
-        <td width="251" align="center"><span class="STYLE1">大智慧医疗辅助诊断平台<span class="STYLE2"> Great Wisdom Medical Aided Diagnosis Platform</span></span></td>
+        <td width="91" align="center"><img src="../images/logo.png" width="80" height="80" /></td>
+        <td width="251" align="center"><span class="STYLE1">大智慧医疗辅助诊断平台<span class="STYLE2" style="font-size:12px"> Great Wisdom Medical Aided Diagnosis Platform</span></span></td>
       </tr>
       
     </table></td>
@@ -66,12 +81,11 @@ a:hover{text-decoration:underline; color:#3EAA42;}
     <td width="100" height="72">&nbsp;</td>
     <td width="85%" height="72"><table width="100%" height="60" border="0" cellpadding="0" cellspacing="0">
       <tr>
-        <td width="1075"><span class="STYLE4">首页</span> <span class="STYLE4">&gt; ${param.name }</span></td>
-       <td width="204"><div align="right" class="STYLE4"><a href="#"></a>${sessionScope.user.loginname },欢迎您!</div>
-        <div align="right" class="STYLE4"><a  href="javascript:parent.window.location.href='../main/main.jsp'"
+        <td width="1075"><span class="STYLE4"><a  href="javascript:parent.window.location.href='../main/main.jsp'"
 					onclick="ChangeCss(this)"
 						target="_parent"
-						style="color:green">返回首页</a></div></td>
+						style="color:#3EAA42">首页</a></span> <span id="typeName" class="STYLE4">&gt; ${param.name }</span></td>
+       	<td width="204"><div align="right" class="STYLE4"><a href="#"></a>${sessionScope.user.loginname },欢迎您!</div>
         <td width="36"><div align="right"><img src="../images/user1.png" width="35" height="35" /></div></td>
       </tr>
     </table> </td>
@@ -80,13 +94,13 @@ a:hover{text-decoration:underline; color:#3EAA42;}
   <tr>
 
     <td width="100" height="100%">&nbsp;</td>
-    <td width="80%" height="670" bgcolor="#F0F1F5"><table width="800" height="500" border="0" align="center" cellpadding="0" cellspacing="0">
+    <td width="80%" height="720" bgcolor="#F0F1F5"><table width="800" height="500" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td>
         <div class="width_auto">
     	<div id="container">
         <!--头部，相册选择和格式选择-->
-        <div id="uploader" >
+        <div id="uploader" style="position:relative">
             <div class="item_container">                             
                <div id="" class="queueList" >
                   <div style="position:relative; font:normal 14px/24px 'MicroSoft YaHei';">
@@ -99,11 +113,12 @@ a:hover{text-decoration:underline; color:#3EAA42;}
       		</div>
       	</div>  
       </div>
-    <center>
+    <div style="text-align:center;margin-top:17px;">
     	<button id="repalce"  name="uploadImage" class="upload-button" >01:点击检查文件</button>
     	<button id="btn2"     class="upload-button" >02:点击上传文件</button>	
     	<button id="diagnose" name="diagnose"  class="upload-button" style="visibility: hidden" onclick="window.location.href='diagnose.action'">03:进行辅助诊断</button>	
-    </center> 
+    	<button id="3d"     class="upload-button" style="visibility: hidden"><a href="../test3D/test3D.jsp?niiName=test.nii.gz" target="_blank">查看原数据的3D效果</a></button>	
+    </div> 
     </td>
       </tr>
     </table></td>
@@ -163,14 +178,20 @@ function ChangeCss(obj){
     		uploader:"http://localhost:8090/SH/UploadServlet",
     		onUploadStart:function(file){
     			console.log(file.name+'开始上传');
+    			$("#repalce, #btn2").attr('disabled',"true");
     		},
     		onInit:function(obj){
     			console.log('初始化');
     			console.log(obj);
     		},
     		onUploadComplete:function(file){
+    			$("#diagnose").attr("style","visibility: show");
     			console.log(file.name+'上传完成');
-    			$("#diagnose").attr("style","visibility: show")
+    			var typeName = $("#typeName").text();
+    			var flag = typeName.search("小肠癌AI辅助分割");
+    			if(flag != -1){
+    				$("#3d").attr("style","visibility: show");
+    			}
     		},
     		onCancel:function(file){
     			
@@ -182,7 +203,6 @@ function ChangeCss(obj){
     			console.log('destroyed!');
     		},
     		onSelect:function(files){
-    	  		
     			console.log(files.name+'加入上传队列');
     		},
     		onQueueComplete:function(queueData){

@@ -15,10 +15,10 @@ body {
 .STYLE1 {	font-size: 26px;
 	font-family: Microsoft YaHei;
 	color: rgb( 251, 247, 247 );
-	line-height: 1.278;
+	line-height: 1.0;
 	position: absolute;
 	left: 153px;
-	top: 25px;
+	top: 18px;
 	z-index: 15;
 	width: 293px;
 	height: 55px;
@@ -41,11 +41,11 @@ a:hover{text-decoration:underline; color:#3EAA42;}
 <body>
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td height="101" colspan="3" bordercolor="#000000" bgcolor="#000000"><table width="408" height="100" border="0" cellpadding="0" cellspacing="0">
+    <td height="85" colspan="3" bordercolor="#000000" bgcolor="#000000"><table width="408" height="85" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="66" align="center">&nbsp;</td>
-        <td width="91" align="center"><img src="../images/logo.png" width="80" height="82" /></td>
-        <td width="251" align="center"><span class="STYLE1">大智慧医疗辅助诊断平台<span class="STYLE2"> Great Wisdom Medical Aided Diagnosis Platform</span></span></td>
+        <td width="91" align="center"><img src="../images/logo.png" width="80" height="80" /></td>
+        <td width="251" align="center"><span class="STYLE1">大智慧医疗辅助诊断平台<span class="STYLE2" style="font-size:12px"> Great Wisdom Medical Aided Diagnosis Platform</span></span></td>
       </tr>
       
     </table></td>
@@ -54,12 +54,11 @@ a:hover{text-decoration:underline; color:#3EAA42;}
     <td width="100" height="72">&nbsp;</td>
     <td width="85%" height="72"><table width="100%" height="60" border="0" cellpadding="0" cellspacing="0">
       <tr>
-        <td width="1075"><span class="STYLE4">首页</span> <span class="STYLE4">&gt; 小肠癌AI辅助诊断</span></td>
-        <td width="204"><div align="right" class="STYLE4"><a href="#"></a>${sessionScope.user.loginname },欢迎您!</div>
-        <div align="right" class="STYLE4"><a  href="javascript:parent.window.location.href='../main/main.jsp'"
-					onclick=""
+        <td width="1075"><span class="STYLE4"><a  href="javascript:parent.window.location.href='../main/main.jsp'"
+					onclick="ChangeCss(this)"
 						target="_parent"
-						style="color:green">返回首页</a></div></td>
+						style="color:#3EAA42">首页</a></span> <span class="STYLE4">&gt; 小肠癌AI辅助诊断</span></td>
+       <td width="204"><div align="right" class="STYLE4"><a href="#"></a>${sessionScope.user.loginname },欢迎您!</div>
         <td width="36"><div align="right"><img src="../images/user1.png" width="35" height="35" /></div></td>
       </tr>
     </table> </td>

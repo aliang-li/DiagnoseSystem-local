@@ -5,7 +5,7 @@ body {
 /* Layers */
 .layerContainer { 
     position: relative; padding: 0;
-    margin: auto; text-align: center; }
+     background-color:#1e1c1c;}
 .imageLayer { 
     position: absolute;
     left: 0px; }

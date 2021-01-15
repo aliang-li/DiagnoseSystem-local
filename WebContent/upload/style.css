@@ -415,3 +415,27 @@
     pointer-events: none;
     opacity: 0.6;
 }
+
+button:disabled{
+	background: #00800070;
+}
+/* Huploadify.css重置 */
+
+.uploadify-queue-item {
+    background-color: #F0F1F58F;
+    border-radius: 8px;
+}
+.uploadify-progress {
+    height: 4px;
+    background-color: white;
+    border-radius: 3px;
+    border:none;
+}
+.upload-button{
+	border-radius:6px;
+	border:2px solid #c0c0c01a;
+	font-size:17px;
+}
+.up_percent {
+    margin-left: 420px;
+}

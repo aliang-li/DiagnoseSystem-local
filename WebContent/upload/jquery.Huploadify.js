@@ -1,37 +1,37 @@
 (function($){
 	$.fn.Huploadify = function(opts){
-		var itemTemp = '<div id="${fileID}" class="uploadify-queue-item"><span class="up_filename">${fileName}</span><div class="uploadify-progress"><div class="uploadify-progress-bar"></div></div><a href="javascript:void(0);" id="cancel01" class="delfilebtn" style="display:none">删除</a></div>';
+		var itemTemp = '<div id="${fileID}" class="uploadify-queue-item"><span class="up_filename">${fileName}</span><div class="uploadify-progress"><div class="uploadify-progress-bar"></div></div><a href="javascript:void(0);" id="cancel01" class="delfilebtn" style="margin-left:10px;color:#3EAA42">删除<span class="ax-iconfont ax-icon-close"></span></a></div>';
 		var defaults = {
-			fileTypeExts:'*.*',//允许上传的文件类型，格式'*.jpg;*.doc'
-			uploader:'',//文件提交的地址
-			auto:false,//是否开启自动上传
-			method:'post',//发送请求的方式，get或post
-			multi:true,//是否允许选择多个文件
-			formData:null,//发送给服务端的参数，格式：{key1:value1,key2:value2}
-			fileObjName:'file',//在后端接受文件的参数名称，如PHP中的$_FILES['file']
-			fileSizeLimit:2048,//允许上传的文件大小，单位KB
-			showUploadedPercent:true,//是否实时显示上传的百分比，如20%
-			showUploadedSize:false,//是否实时显示已上传的文件大小，如1M/2M
-			buttonText:'选择文件',//上传按钮上的文字
-			removeTimeout: 1000,//上传完成后进度条的消失时间，单位毫秒
-			itemTemplate:itemTemp,//上传队列显示的模板
-			onUploadStart:null,//上传开始时的动作
-			onUploadSuccess:null,//上传成功的动作
-			onUploadComplete:null,//上传完成的动作
-			onUploadError:null, //上传失败的动作
-			onInit:null,//初始化时的动作
-			onCancel:null,//删除掉某个文件后的回调函数，可传入参数file
-			onClearQueue:null,//清空上传队列后的回调函数，在调用cancel并传入参数*时触发
-			onDestroy:null,//在调用destroy方法时触发
-			onSelect:null,//选择文件后的回调函数，可传入参数file
-			onQueueComplete:null//队列中的所有文件上传完成后触发
+			fileTypeExts:'*.*',// 允许上传的文件类型，格式'*.jpg;*.doc'
+			uploader:'',// 文件提交的地址
+			auto:false,// 是否开启自动上传
+			method:'post',// 发送请求的方式，get或post
+			multi:true,// 是否允许选择多个文件
+			formData:null,// 发送给服务端的参数，格式：{key1:value1,key2:value2}
+			fileObjName:'file',// 在后端接受文件的参数名称，如PHP中的$_FILES['file']
+			fileSizeLimit:2048,// 允许上传的文件大小，单位KB
+			showUploadedPercent:true,// 是否实时显示上传的百分比，如20%
+			showUploadedSize:false,// 是否实时显示已上传的文件大小，如1M/2M
+			buttonText:'选择文件',// 上传按钮上的文字
+			removeTimeout: 1000,// 上传完成后进度条的消失时间，单位毫秒
+			itemTemplate:itemTemp,// 上传队列显示的模板
+			onUploadStart:null,// 上传开始时的动作
+			onUploadSuccess:null,// 上传成功的动作
+			onUploadComplete:null,// 上传完成的动作
+			onUploadError:null, // 上传失败的动作
+			onInit:null,// 初始化时的动作
+			onCancel:null,// 删除掉某个文件后的回调函数，可传入参数file
+			onClearQueue:null,// 清空上传队列后的回调函数，在调用cancel并传入参数*时触发
+			onDestroy:null,// 在调用destroy方法时触发
+			onSelect:null,// 选择文件后的回调函数，可传入参数file
+			onQueueComplete:null// 队列中的所有文件上传完成后触发
 		}
 			
 		var option = $.extend(defaults,opts);
 
-		//定义一个通用函数集合
+		// 定义一个通用函数集合
 		var F = {
-			//将文件的单位由bytes转换为KB或MB，若第二个参数指定为true，则永远转换为KB
+			// 将文件的单位由bytes转换为KB或MB，若第二个参数指定为true，则永远转换为KB
 			formatFileSize : function(size,withKB){
 				if (size > 1024 * 1024 && !withKB){
 					size = (Math.round(size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
@@ -41,7 +41,7 @@
 				}
 				return size;
 			},
-			//将输入的文件类型字符串转化为数组,原格式为*.jpg;*.png
+			// 将输入的文件类型字符串转化为数组,原格式为*.jpg;*.png
 			getFileTypes : function(str){
 				var result = [];
 				var arr1 = str.split(";");
@@ -50,7 +50,7 @@
 				}
 				return result;
 			},
-			////根据文件序号获取文件
+			// //根据文件序号获取文件
 			getFile : function(index,files){
 				for(var i=0;i<files.length;i++){	   
 					if(files[i].index == index){
@@ -68,7 +68,7 @@
 			var instanceNumber = $('.uploadify').length+1;
 			var uploadManager = {
 				container : _this,
-				filteredFiles : [],//过滤后的文件数组
+				filteredFiles : [],// 过滤后的文件数组
 				init : function(){
 					var inputStr = '<input id="select_btn_'+instanceNumber+'" class="selectbtn" style="display:none;" type="file" name="upload"';
 					inputStr += option.multi ? ' multiple' : '';
@@ -81,7 +81,7 @@
 					var uploadFileListStr = '<div id="file_upload_'+instanceNumber+'-queue" class="uploadify-queue"></div>';
 					_this.append(inputStr+uploadFileListStr);
 
-					//初始化返回的实例
+					// 初始化返回的实例
 					returnObj =  {
 						instanceNumber : instanceNumber,
 						upload : function(fileIndex){
@@ -113,7 +113,7 @@
 							parent.find('.uploadify-button').css('background-color','#888').off('click');
 						},
 						ennable : function(instanceID){
-							//点击上传按钮时触发file的click事件
+							// 点击上传按钮时触发file的click事件
 							var parent = instanceID ? $('file_upload_'+instanceID+'-button') : $('body');
 						  	parent.find('.uploadify-button').css('background-color','#707070').on('click',function(){
 								parent.find('.selectbtn').trigger('click');
@@ -146,7 +146,7 @@
 						}
 					};
 
-					//文件选择控件选择
+					// 文件选择控件选择
 					var fileInput = this._getInputBtn();
 				  	if (fileInput.length>0) {
 						fileInput.change(function(e) { 
@@ -154,14 +154,14 @@
 					 	});	
 				 	}
 				  
-					//点击选择文件按钮时触发file的click事件
+					// 点击选择文件按钮时触发file的click事件
 					_this.find('.uploadify-button').on('click',function(){
 						_this.find('.selectbtn').trigger('click');
 					});
 				  
 					option.onInit && option.onInit(returnObj);
 				},
-				_filter: function(files) {		//选择文件组的过滤方法
+				_filter: function(files) {		// 选择文件组的过滤方法
 					var arr = [];
 					var typeArray = F.getFileTypes(option.fileTypeExts);
 					if(typeArray.length>0){
@@ -172,11 +172,27 @@
 									arr.push(f);
 								}
 								else{
-									alert('文件 "'+f.name+'" 类型不允许！');
+									Swal.fire({
+									    icon: 'error',
+									    toast:true,
+									    timer:2000,
+									    target:'#uploader',
+									    position:'center',
+									    title:'文件 "'+f.name+'" 类型不允许！',
+									    showConfirmButton:false,
+									});
 								}
 							}
 							else{
-								alert('文件 "'+f.name+'" 大小超出限制！');
+								Swal.fire({
+								    icon: 'error',
+								    toast:true,
+								    timer:2000,
+								    target:'#uploader',
+								    position:'center',
+								    title:'文件 "'+f.name+'" 大小超出限制！',
+								    showConfirmButton:false,
+								});
 								continue;
 							}
 						}
@@ -189,36 +205,36 @@
 				_getFileList : function(){
 					return _this.find('.uploadify-queue');
 				},
-				//根据选择的文件，渲染DOM节点
+				// 根据选择的文件，渲染DOM节点
 				_renderFile : function(file){
 					var $html = $(option.itemTemplate.replace(/\${fileID}/g,'fileupload_'+instanceNumber+'_'+file.index).replace(/\${fileName}/g,file.name).replace(/\${fileSize}/g,F.formatFileSize(file.size)).replace(/\${instanceID}/g,_this.attr('id')));
-					//如果是非自动上传，显示上传按钮
+					// 如果是非自动上传，显示上传按钮
 					if(!option.auto){
 						$html.find('.uploadbtn').css('display','inline-block');
 					}
 					uploadManager._getFileList().append($html);
 
-					//判断是否显示已上传文件大小
+					// 判断是否显示已上传文件大小
 					if(option.showUploadedSize){
 						var num = '<span class="progressnum"><span class="uploadedsize">0KB</span>/<span class="totalsize">${fileSize}</span></span>'.replace(/\${fileSize}/g,F.formatFileSize(file.size));
 						$html.find('.uploadify-progress').after(num);
 					}
 					
-					//判断是否显示上传百分比	
+					// 判断是否显示上传百分比
 					if(option.showUploadedPercent){
 						var percentText = '<span class="up_percent">0%</span>';
 						$html.find('.uploadify-progress').after(percentText);
 					}
 
-					//触发select动作
+					// 触发select动作
 					option.onSelect && option.onSelect(file);
 
-					//判断是否是自动上传
+					// 判断是否是自动上传
 					if(option.auto){
 						uploadManager._uploadFile(file);
 					}
 					else{
-						//如果配置非自动上传，绑定上传事件
+						// 如果配置非自动上传，绑定上传事件
 					 	$html.find('.uploadbtn').on('click',function(){
 					 		if(!$(this).hasClass('.disabledbtn')){
 					 			$(this).addClass('.disabledbtn');
@@ -227,16 +243,19 @@
 				 		});
 					}
 
-					//为删除文件按钮绑定删除文件事件
+					// 为删除文件按钮绑定删除文件事件
 			 		$html.find('.delfilebtn').on('click',function(){
 			 			if(!$(this).hasClass('.disabledbtn')){
 					 		$(this).addClass('.disabledbtn');
 			 				uploadManager._deleteFile(file);
+			 				$("#repalce, #btn2").removeAttr("disabled");
+			 				$("#diagnose").attr("style","visibility: hidden");
 			 			
 			 			}
 			 		});
+			 		
 				},
-				//获取选择后的文件
+				// 获取选择后的文件
 				_getFiles : function(e){
 					
 					var files = e.target.files;
@@ -249,112 +268,148 @@
 			  		var flag1=0
 					$result.html("");
 					$("#result_block").removeClass("hidden").addClass("show");
+					
+					// 2020.12 修改了顺序，应该先过滤，再进行解压等操作
+					files = uploadManager._filter(files); 
+			  		var fileCount = _this.find('.uploadify-queue .uploadify-queue-item').length;// 队列中已经有的文件个数
+		  			for(var i=0,len=files.length;i<len;i++){
+		  				files[i].index = ++fileCount;
+		  				files[i].status = 0;// 标记为未开始上传
+		  				uploadManager.filteredFiles.push(files[i]);
+		  				var l = uploadManager.filteredFiles.length;
+		  				uploadManager._renderFile(uploadManager.filteredFiles[l-1]);
+		  			}
+					
 			  		for(var i = 0 ,j=1; i < files.length; i++,j++){
-			  			//alert(files.length);
+			  			// alert(files.length);
 						var $title = $("<h4>",{text : files[i].name});
 						
 						var $fileContent = $("<ul>");
 						$result.append($title);
 						$result.append($fileContent);
-						JSZip.loadAsync(files[i]).then(function(zip){
-							//alert(zip);
-							zip.forEach(function (relativePath, zipEntry){
-								// 对文件路径进行切割 
-								//alert(zipEntry.name);
-								var array = zipEntry.name.split('/');
-								
-								var arrayLen = 0;
-								for(var i in array){
-									arrayLen++;
-									//alert(array[i]);
-                                    console.log(array[i])
-								}
-								
-								if(( /^[0-9a-zA-Z]+$/.test(array[0]))){
-								    if(arrayLen == 2 || arrayLen == 3){
+						//2020 12 新加的判断
+						if (files[i].type == "application/zip"){
+							//只有zip才可以
+							JSZip.loadAsync(files[i]).then(function(zip){
+								zip.forEach(function (relativePath, zipEntry){
+									// 对文件路径进行切割
+									// alert(zipEntry.name);
+									var array = zipEntry.name.split('/');
 									
-									 // 用来判断患者名称是否含有_
-										//用来判断压缩包中是否有多个文件
-									  
-									    if(!(/_/.test(array[0]))){
-												//用来判断压缩包中是否有多个文件 
-												if(arrayLen == 2){
-													if (flag==0){
-														   flag1=array[0]
-															flag=flag+1
-															console.log("------")
-														}else{
-															if (array[0]==flag1){
-																
-																
+									var arrayLen = 0;
+									for(var i in array){
+										arrayLen++;
+										// alert(array[i]);
+	                                    console.log(array[i])
+									}
+									
+									if(( /^[0-9a-zA-Z]+$/.test(array[0]))){
+									    if(arrayLen == 2 || arrayLen == 3){
+										
+										 // 用来判断患者名称是否含有_
+											// 用来判断压缩包中是否有多个文件
+										  
+										    if(!(/_/.test(array[0]))){
+													// 用来判断压缩包中是否有多个文件
+													if(arrayLen == 2){
+														if (flag==0){
+															   flag1=array[0]
+																flag=flag+1
+																console.log("------")
 															}else{
-																//console.log("重复"+array[0]+"-----"+flag1)
-																$fileContent.append("<p style='color:red'>" +zipEntry.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"' + array[arrayLen-1] +'"压缩包中不能含有两个病人的文件夹！' + "</p>");
-											            		fileError.push("压缩包中不能含有多个病人的文件夹！");
+																if (array[0]==flag1){
+																	
+																	
+																}else{
+																	// console.log("重复"+array[0]+"-----"+flag1)
+																	$fileContent.append("<p style='color:red'>" +zipEntry.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"' + array[arrayLen-1] +'"压缩包中不能含有两个病人的文件夹！' + "</p>");
+												            		fileError.push("压缩包中不能含有多个病人的文件夹！");
+																}
 															}
-														}
-				
-													// 判断二级目录为文件夹，而不是文件    	           		
-									            	if(!((/\./).test(array[arrayLen-1]))){
-									            		
-									            		// 这里准备用一级文件夹   用来判断重名 
-									            		//var patientNameArray = a.split(" ");
-									            		//for (var i = 0; i < patientNameArray.length; i++){
-									            		//	if(patientNameArray[i] == array[0]){									            													     
-									            			//	fileError.push("\n " + ' " ' + array[0] +' " ' + "与文件库中" + array[0] + "文件重名，请修改后上传！");
-									            			//}
-									            		//} 
-									            	}else{
-									            		$fileContent.append("<p style='color:red'>" +zipEntry.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"' + array[arrayLen-1] +'"不是文件夹，请删除后上传！' + "</p>");
-									            		fileError.push("\n " + zipEntry.name +' " ' + array[arrayLen-1] +' " ' + "不是文件夹，请删除后上传");
-									            	}
-												}
-												
-												if( (arrayLen == 3 && /.dcm/.test(array[arrayLen-1]))||(arrayLen == 3 && /.nii.gz/.test(array[arrayLen-1]))){
-									            	// 三级目录中是否含有中文dcm文件
-									            	//if(/.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-1]) || /.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-2])){
-									            	if(/.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-1])) {
-									            		$fileContent.append("<p style='color:red'>" + zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + array[arrayLen-1] + "中含有中文名称，请修改后上传！" + "</p>");
-									            		fileError.push("\n " + zipEntry.name + ' " ' + array[arrayLen-1]+ ' " ' + "中含有中文名称，请修改后上传！");
-									            	// 判断二级目录是否含有中文
-									            	}else if(/.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-2])){
-									            		$fileContent.append("<p style='color:red'>" + zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + array[arrayLen-2] + "中含有中文名称，请修改后上传！" + "</p>");
-									            		fileError.push("\n " + zipEntry.name + ' " ' + array[arrayLen-2]+ ' " ' +"中含有中文名称，请修改后上传！");
-									            	// 判断二级目录中含有文件，二级目录必须全部为文件夹
-									            	}else if(arrayLen == 3 && (/\./).test(array[arrayLen-2])){
-									            		
-									            		$fileContent.append("<p style='color:red'>" +zipEntry.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"' + array[arrayLen-2] +'"不是文件夹，请删除后上传！' + "</p>");
-									            		fileError.push("\n " + zipEntry.name +' " ' + array[arrayLen-2] +' " ' + "不是文件夹，请删除后上传");
-									            	}
-									            	// 正确的dcm文件
-									            	else{
-									            		$fileContent.append("<p style='color:green'>" + zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;符合上传要求，请点击上传按钮。" + "</p>");	            		
-									            	}
-									            }
-												// 判断三级目录下不是dcm文件
-									            else if(arrayLen == 3 && (/[0-9a-zA-Z\u4e00-\u9fa5]/.test(array[arrayLen-1]))){
-									            		$fileContent.append("<p style='color:red'>" +zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非dcm文件，请删除后上传。" + "</p>");
-									            		fileError.push("\n " + zipEntry.name + "    非dcm文件，请删除后上传");
-									            }
-												
-										}else{
-											// 这里代表患者名称含有_    
-											fileError.push("\n " + zipEntry.name + '含有"_"，请修改后上传！');
-										}
-							            	
-							    }else{
-							           fileError.push("\n " + zipEntry.name + "文件目录结构不符合要求！");
-							            	
-							            }
-							}else{
-								f1.push("文件一级目录中不能含有含有中文名称，请修改后上传！");
-					            
-							}
-							            });	
-							
+					
+														// 判断二级目录为文件夹，而不是文件
+										            	if(!((/\./).test(array[arrayLen-1]))){
+										            		
+										            		// 这里准备用一级文件夹 用来判断重名
+										            		// var patientNameArray
+															// = a.split(" ");
+										            		// for (var i = 0; i <
+															// patientNameArray.length;
+															// i++){
+										            		// if(patientNameArray[i]
+															// == array[0]){
+										            			// fileError.push("\n
+																// " + ' " ' +
+																// array[0] +' " ' +
+																// "与文件库中" +
+																// array[0] +
+																// "文件重名，请修改后上传！");
+										            			// }
+										            		// }
+										            	}else{
+										            		$fileContent.append("<p style='color:red'>" +zipEntry.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"' + array[arrayLen-1] +'"不是文件夹，请删除后上传！' + "</p>");
+										            		fileError.push("\n " + zipEntry.name +' " ' + array[arrayLen-1] +' " ' + "不是文件夹，请删除后上传");
+										            	}
+													}
+													
+													if( (arrayLen == 3 && /.dcm/.test(array[arrayLen-1]))||(arrayLen == 3 && /.nii.gz/.test(array[arrayLen-1]))){
+										            	// 三级目录中是否含有中文dcm文件
+										            	// if(/.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-1])
+														// ||
+														// /.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-2])){
+										            	if(/.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-1])) {
+										            		$fileContent.append("<p style='color:red'>" + zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + array[arrayLen-1] + "中含有中文名称，请修改后上传！" + "</p>");
+										            		fileError.push("\n " + zipEntry.name + ' " ' + array[arrayLen-1]+ ' " ' + "中含有中文名称，请修改后上传！");
+										            	// 判断二级目录是否含有中文
+										            	}else if(/.*[\u4e00-\u9fa5]+.*$/.test(array[arrayLen-2])){
+										            		$fileContent.append("<p style='color:red'>" + zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + array[arrayLen-2] + "中含有中文名称，请修改后上传！" + "</p>");
+										            		fileError.push("\n " + zipEntry.name + ' " ' + array[arrayLen-2]+ ' " ' +"中含有中文名称，请修改后上传！");
+										            	// 判断二级目录中含有文件，二级目录必须全部为文件夹
+										            	}else if(arrayLen == 3 && (/\./).test(array[arrayLen-2])){
+										            		
+										            		$fileContent.append("<p style='color:red'>" +zipEntry.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"' + array[arrayLen-2] +'"不是文件夹，请删除后上传！' + "</p>");
+										            		fileError.push("\n " + zipEntry.name +' " ' + array[arrayLen-2] +' " ' + "不是文件夹，请删除后上传");
+										            	}
+										            	// 正确的dcm文件
+										            	else{
+										            		$fileContent.append("<p style='color:green'>" + zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;符合上传要求，请点击上传按钮。" + "</p>");	            		
+										            	}
+										            }
+													// 判断三级目录下不是dcm文件
+										            else if(arrayLen == 3 && (/[0-9a-zA-Z\u4e00-\u9fa5]/.test(array[arrayLen-1]))){
+										            		$fileContent.append("<p style='color:red'>" +zipEntry.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非dcm文件，请删除后上传。" + "</p>");
+										            		fileError.push("\n " + zipEntry.name + "    非dcm文件，请删除后上传");
+										            }
+													
+											}else{
+												// 这里代表患者名称含有_
+												fileError.push("\n " + zipEntry.name + '含有"_"，请修改后上传！');
+											}
+								            	
+								    }else{
+								           fileError.push("\n " + zipEntry.name + "文件目录结构不符合要求！");
+								            	
+								            }
+								}else{
+									f1.push("文件一级目录中不能含有含有中文名称，请修改后上传！");
+						            
+								}
+								});	//zip.forEach结束
+								
 								if(fileError.length == 0&&f1.length == 0){
-										alert("上传文件检查合格，请点击上传文件。");
+										// alert("上传文件检查合格，请点击上传文件。");//上传成功
+										// 更改为sweetalert
+										Swal.fire({
+										    icon: 'success',
+										    toast:true,
+										    timer:2000,
+										    target:'#uploader',
+										    position:'bottom',
+										    title: '上传文件检查合格，请点击上传文件',
+										    showConfirmButton:false,
+										});
 										$(".delfilebtn").prop('class','upload');
+										$("#repalce").attr('disabled',"true");
 								}else{
 										$(".delfilebtn").prop('class','unupload');
 										if (fileError.length == 0){}
@@ -369,41 +424,68 @@
 									
 								}
 							    fileError = [];
-							    
-							//
+								    
+								//
+									
+								/*
+								 * $fileContent.append($("<li>", {text :
+								 * zipEntry.name}));
+								 */
+						
+							},function(e){
 								
-								/* $fileContent.append($("<li>", {text : zipEntry.name})); */
-					
-						},function(e){
-							$result.append($("<div>",{"class" : "alert alert-danget", 
-								text : "Error reading" + files[i].name + ":  " + e.message}));
-						});
+								 $result.append($("<div>",{"class" : "alert alert-danget",
+								 text : "Error reading" + files[i].name + ": " + e.message}));
+							});
+						}else{
+							//nii.gz 和 MP4走这里
+							if(fileError.length == 0&&f1.length == 0){
+								// alert("上传文件检查合格，请点击上传文件。");//上传成功
+								// 更改为sweetalert
+								Swal.fire({
+								    icon: 'success',
+								    toast:true,
+								    timer:2000,
+								    target:'#uploader',
+								    position:'bottom',
+								    title: '上传文件检查合格，请点击上传文件',
+								    showConfirmButton:false,
+								});
+								$(".delfilebtn").prop('class','upload');
+								$("#repalce").attr('disabled',"true");
+							}else{
+									$(".delfilebtn").prop('class','unupload');
+									if (fileError.length == 0){}
+									else{alert(fileError);}
+								
+									if (f1.length == 0){}
+										
+									else
+									{alert("文件一级目录中不能含有含有中文名称，请修改后上传！")}
+									
+									$(".unupload").click();
+								
+							}
+						    fileError = [];
+						}
+						
 											
 			  		}
 			  		
-			  		files = uploadManager._filter(files);
-			  		var fileCount = _this.find('.uploadify-queue .uploadify-queue-item').length;//队列中已经有的文件个数
-		  			for(var i=0,len=files.length;i<len;i++){
-		  				files[i].index = ++fileCount;
-		  				files[i].status = 0;//标记为未开始上传
-		  				uploadManager.filteredFiles.push(files[i]);
-		  				var l = uploadManager.filteredFiles.length;
-		  				uploadManager._renderFile(uploadManager.filteredFiles[l-1]);
-		  			}
 				},
-				//删除文件
+				// 删除文件
 				_deleteFile : function(file){
 					for (var i = 0,len=uploadManager.filteredFiles.length; i<len; i++) {
 						var f = uploadManager.filteredFiles[i];
 						if (f.index == file.index) {
 							uploadManager.filteredFiles.splice(i,1);
-							_this.find('#fileupload_'+instanceNumber+'_'+file.index).fadeOut();
+							_this.find('#fileupload_'+instanceNumber+'_'+file.index).fadeOut();// 使用淡出效果来隐藏被选元素
 							option.onCancel && option.onCancel(file);	
 							break;
 						}
 			  		}
 				},
-				//校正上传完成后的进度条误差
+				// 校正上传完成后的进度条误差
 				_regulateView : function(file){
 					var thisfile = _this.find('#fileupload_'+instanceNumber+'_'+file.index);
 					thisfile.find('.uploadify-progress-bar').css('width','100%');
@@ -442,7 +524,7 @@
 			  		}
 			  		return queueData;
 			  	},
-				//上传文件
+				// 上传文件
 				_uploadFile : function(file){
 				
 					var xhr = null;
@@ -455,38 +537,61 @@
 				  		// 上传中
 					  	xhr.upload.onprogress = function(e) {
 							uploadManager.onProgress(file, e.loaded, e.total);
+							if(e.loaded == e.total){
+								Swal.fire({
+								    icon: 'info',
+								    toast:true,
+								    target:'#uploader',
+								    position:'bottom',
+								    title: '数据转化中...',
+								    showConfirmButton:false,
+								    didRender:() => {
+								       Swal.showLoading();
+								    },
+								 
+								});
+							}
 						};
-
+						
 						xhr.onreadystatechange = function(e) {
 							if(xhr.readyState == 4){
 								if(xhr.status == 200){
 									uploadManager._regulateView(file);
-									file.status = 2;//标记为上传成功
+									Swal.close();
+									Swal.fire({
+										toast:true,
+										icon:"success",
+										title:'转化完成！',
+										showConfirmButton:false,
+										timer:2000,
+										target:'#uploader',
+									    position:'bottom',
+									});
+									file.status = 2;// 标记为上传成功
 									option.onUploadSuccess && option.onUploadSuccess(file, xhr.responseText);
-									//在指定的间隔时间后删掉进度条
+									// 在指定的间隔时间后删掉进度条
 									setTimeout(function(){
 										_this.find('#fileupload_'+instanceNumber+'_'+file.index).fadeOut();
 									},option.removeTimeout);
 								}
 								else {
-									file.status = 3;//标记为上传失败
+									file.status = 3;// 标记为上传失败
 									option.onUploadError && option.onUploadError(file, xhr.responseText);		
 								}
 								option.onUploadComplete && option.onUploadComplete(file,xhr.responseText);
 								
-								//检测队列中的文件是否全部上传完成，执行onQueueComplete
+								// 检测队列中的文件是否全部上传完成，执行onQueueComplete
 								if(option.onQueueComplete){
 									var queueData = uploadManager._allFilesUploaded();
 									queueData && option.onQueueComplete(queueData);	
 								}
 
-								//清除文件选择框中的已有值
+								// 清除文件选择框中的已有值
 								uploadManager._getInputBtn().val('');
 							}
 						}
-
 						if(file.status===0){
-							file.status = 1;//标记为正在上传
+							file.status = 1;// 标记为正在上传
 							option.onUploadStart && option.onUploadStart(file);
 							// 开始上传
 							xhr.open(option.method, option.uploader, true);

@@ -47,9 +47,9 @@ function startApp() {
         "fitToWindow": true,
         "gui": ["tool", "load", "help", "undo", "version", "tags", "drawList"],
         "loaders": [],
-        "tools": ["Scroll", "WindowLevel", "ZoomAndPan", "Draw", "Filter"],
+        "tools": ["Scroll", "WindowLevel", "ZoomAndPan", "Draw", "Filter","FloodfillFactory"],
         "filters": ["Threshold", "Sharpen", "Sobel"],
-        "shapes": ["Arrow", "Ruler", "Protractor", "Rectangle", "Roi", "Ellipse", "FreeHand"],
+        "shapes": ["Arrow", "Ruler", "Protractor", "Rectangle", "Roi", "Ellipse", "FreeHand","FreeHandFill","Circle","Eraser"],
         "isMobile": true,
         "helpResourcesPath": "resources/help"
         //"defaultCharacterSet": "chinese"

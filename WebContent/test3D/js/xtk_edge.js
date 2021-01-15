@@ -1018,6 +1018,7 @@ function wc(a) {
     this.j = q
 }
 C(wc, M);
+//xc  这个函数是X.loadable 在X.volume()中通过inject(this, new X.loadable())注入进来的
 function xc() {
     this.$a = this.r = t
 }
@@ -2124,6 +2125,7 @@ function() {
     return this.F
 });
 Y.prototype.__defineGetter__("children", v("c"));
+//X.object.prototype.modified()
 Y.prototype.q = function() {
     var a = new ld;
     a.D = this;
@@ -3083,6 +3085,7 @@ function Ne(a) {
     this.f = "interactor2D"
 }
 C(Ne, Je);
+//X.interactor2D.prototype.onMouseWheel_()
 Ne.prototype.Kd = function(a) {
     Ne.u.Kd.call(this, a);
     var b = new Kd;
@@ -3402,7 +3405,9 @@ function Ve(a, b) {
     ad(c, e);
     return [c, e]
 }
+//X.parser.reslice2
 function We(a, b, c, e, d, f, g, h, l) {
+	debugger;
     var j = new Xe;
     Oc(c, c);
     for (var k = [], n = [], s = 0; 6 > s; s++) for (var r = Math.floor(s / 2), y = (r + 1) % 3, z = (r + 2) % 3, F = (4 + 2 * r) % 6, G = 0; 2 > G; G++) {
@@ -3420,6 +3425,7 @@ function We(a, b, c, e, d, f, g, h, l) {
         E[z] = B,
         n.push(E)
     }
+    debugger;
     a = Nc(0, 0, 1);
     a = Ve(c, a);
     d = a[0];
@@ -3570,7 +3576,9 @@ function Ye(a, b, c, e) {
     e.b[a].k[0][0][0] > e.b[a].k[0][1][0] ? 0 < g[0] && (d = e.b[a].k[0][0], e.b[a].k[0][0] = e.b[a].k[0][1], e.b[a].k[0][1] = d) : e.b[a].k[0][0][0] < e.b[a].k[0][1][0] ? 0 > g[0] && (d = e.b[a].k[0][0], e.b[a].k[0][0] = e.b[a].k[0][1], e.b[a].k[0][1] = d) : e.b[a].k[0][0][1] > e.b[a].k[0][1][1] ? 0 < g[1] && (d = e.b[a].k[0][0], e.b[a].k[0][0] = e.b[a].k[0][1], e.b[a].k[0][1] = d) : e.b[a].k[0][0][1] < e.b[a].k[0][1][1] ? 0 > g[1] && (d = e.b[a].k[0][0], e.b[a].k[0][0] = e.b[a].k[0][1], e.b[a].k[0][1] = d) : e.b[a].k[0][0][2] > e.b[a].k[0][1][2] ? 0 < g[2] && (d = e.b[a].k[0][0], e.b[a].k[0][0] = e.b[a].k[0][1], e.b[a].k[0][1] = d) : e.b[a].k[0][0][2] < e.b[a].k[0][1][2] && 0 > g[2] && (d = e.b[a].k[0][0], e.b[a].k[0][0] = e.b[a].k[0][1], e.b[a].k[0][1] = d);
     e.b[a].Te = -(c[0] * b[0][0] + c[1] * b[0][1] + c[2] * b[0][2])
 }
+//X.parser.prototype.reslice()
 function af(a, b) {
+	debugger;
     var c;
     c = b.J;
     for (var e = b.ca,
@@ -3590,6 +3598,7 @@ function af(a, b) {
             r++
         }
     }
+    debugger;
     c = [g, h];
     b.$ = c[0];
     b.bg = c[1];
@@ -3605,6 +3614,7 @@ function af(a, b) {
     c = Nc(b.s[0], b.s[1], b.s[2]);
     b.b[0].vd = c;
     e = Nc(1, 0, 0);
+    debugger;
     Oc(e, e);
     b.b[0].i = e;
     d = [1, 0, 0];
@@ -4101,6 +4111,8 @@ P.prototype.Ta = function() {
     this.bg.length = 0;
     this.$a = t
 };
+//X.volume.prototype.modified
+//鼠标滚动触发的回调函数
 P.prototype.q = function(a) {
     a = "undefined" !== typeof a ? a: q;
     if (0 < this.c.length) {
@@ -4517,16 +4529,20 @@ function lf() {
     this.f = "parserDCM"
 }
 C(lf, Re);
+//lf是X.parseDCM()
+//  X.parserDCM.prototype.parse()
 lf.prototype.parse = function(a, b, c) {
     b.yc = {};
     b.yc.xf = 0;
     this.vc(c, b);
     if (b.r.length == t || b.ta.length == b.r.length) {
+    	debugger;
         b.yc.xf = b.r.length;
         var e = {};
         c = {};
         for (var d = 0; d < b.ta.length; d++) e.hasOwnProperty(b.ta[d].series_instance_uid) || (e[b.ta[d].series_instance_uid] = [], c[b.ta[d].series_instance_uid] = {}),
         c[b.ta[d].series_instance_uid].hasOwnProperty(b.ta[d].sop_instance_uid) || (c[b.ta[d].series_instance_uid][b.ta[d].sop_instance_uid] = q, e[b.ta[d].series_instance_uid].push(b.ta[d]));
+        debugger;
         var f = Object.keys(e)[0],
         d = e[f],
         g = d.length;
@@ -4657,6 +4673,7 @@ lf.prototype.parse = function(a, b, c) {
         c.zc = [d[1] - d[0] + 1, d[3] - d[2] + 1, d[5] - d[4] + 1];
         c.Ac = [d[0], d[2], d[4]];
         b.Gb(c);
+        debugger;
         b.ib = af(this, b)
     }
     c = new ld;
@@ -4686,7 +4703,9 @@ function mf(a, b, c, e) {
     }
     return b
 }
+//X.parserDCM.prototype.parseStream 
 lf.prototype.vc = function(a, b) {
+	//debugger;
     this.J = a;
     if ("undefined" == typeof b.ta || b.ta == t) b.ta = [];
     for (var c = {
@@ -4857,6 +4876,7 @@ function nf() {
 }
 C(nf, Re);
 nf.prototype.parse = function(a, b, c) {
+	debugger;
     D.Ja(this.f + ".parse");
     var e = b.h,
     d = b.n,
@@ -4892,6 +4912,7 @@ nf.prototype.parse = function(a, b, c) {
     of(this, f[c]),
     c++;
     c = this.zd;
+    debugger;
     var f = this.yd,
     g = f.length,
     l = h = this.hc.length;
@@ -4938,6 +4959,7 @@ function of(a, b) {
         a.hc = [];
         return;
     case "TRIANGLE_STRIPS":
+    	debugger;
         a.Nb = q;
         a.Ub = u;
         a.Tb = u;
@@ -4945,6 +4967,7 @@ function of(a, b) {
         a.hc = [];
         return;
     case "LINES":
+    	debugger;
         a.Nb = q;
         a.Ub = u;
         a.Tb = u;
@@ -6713,6 +6736,7 @@ hg.prototype.parse = function(a, b, c) {
 };
 A("X.parserOBJ", hg);
 A("X.parserOBJ.prototype.parse", hg.prototype.parse);
+//ig()相当于X.loader()
 function ig() {
     M.call(this);
     this.f = "loader";
@@ -6734,6 +6758,7 @@ function kg(a) {
     b in lg || m(Error("The " + b + " file format is not supported."));
     return [a, b, lg[b][0], lg[b][1], lg[b][2]]
 }
+//X.loader.prototype.load 
 ig.prototype.load = function(a, b) { (!a || !b) && m(Error("No container or object to load."));
     if (!Cc(this.Kc.ga, a.qa) || this.Kc.get(a.qa)) {
         this.Kc.set(a.qa, u);
@@ -6750,9 +6775,12 @@ ig.prototype.load = function(a, b) { (!a || !b) && m(Error("No container or obje
         }
     }
 };
+//X.loader.prototype.parse
 ig.prototype.parse = function(a, b, c) {
+	//debugger;
     jg(this, 1);
     setTimeout(function() {
+    	//debugger;
         var e = kg(b),
         d = e[3],
         e = new e[2];
@@ -7378,6 +7406,7 @@ Kg.prototype.__defineGetter__("camera", v("N"));
 Kg.prototype.__defineGetter__("loadingCompleted", v("hd"));
 Kg.prototype.__defineGetter__("container", v("v"));
 Kg.prototype.__defineSetter__("container",
+//下面的匿名function相当于X.renderer.prototype.__defineSetter__   是X.renderer2D中_container属性的set方法（因为renderer2D继承renderer）
 function(a) {
     a == t && m(Error("An ID to a valid container (<div>..) is required."));
     var b = a;
@@ -7436,6 +7465,7 @@ w.remove = function(a) { (!this.na || !this.a) && m(Error("The renderer was not 
     }
     return u
 };
+//对应于X.renderer.prototype.update_()
 w.ub = function(a) { (!this.na || !this.a) && m(Error("The renderer was not initialized properly."));
     a != t && (ec(a, yd) || L(a, yd, this.tj.bind(this)), ec(a, zd) || L(a, zd, this.Ej.bind(this)), ec(a, Dd) || L(a, Dd, this.Ef.bind(this)), ec(a, Fd) || L(a, Fd, this.Gf.bind(this)), ec(a, Ed) || L(a, Ed, this.Ff.bind(this)))
 };
@@ -7447,6 +7477,8 @@ w.get = function(a) {
     e = 0; e < c; e++) if (b[e].qa == a) return b[e];
     return t
 };
+
+//X.renderer.prototype.render
 w.cc = function() { (!this.na || !this.a) && m(Error("The renderer was not initialized properly."));
     if (this.tg == t) {
         if (Bc(this.aa.Kc)) {
@@ -7464,6 +7496,7 @@ w.cc = function() { (!this.na || !this.a) && m(Error("The renderer was not initi
         }
         this.He = window.requestAnimationFrame(this.cc.bind(this));
         eval("this.onRender()");
+        //debugger;
         this.dc(u, q);
         eval("this.afterRender()")
     }
@@ -8443,6 +8476,7 @@ w.remove = function(a) {
 };
 w.Gj = aa();
 w.Qj = aa();
+//X.renderer2D.prototype.onScroll_()
 w.Jf = function(a) {
     lh.u.Jf.call(this, a);
     var b = this.Ha[0];
@@ -8473,6 +8507,7 @@ w.Rj = function(a) {
 };
 lh.prototype.__defineGetter__("orientation", v("Qa"));
 lh.prototype.__defineSetter__("orientation",
+//下面这个匿名函数是X.renderer2D.prototype.__defineSetter__ 是X.renderer2D中orientation属性的set方法
 function(a) {
     a = a.toUpperCase();
     "AXIAL" == a ? (a = "Z", this.Fa = 2) : "SAGITTAL" == a ? (a = "X", this.Fa = 0) : "CORONAL" == a && (a = "Y", this.Fa = 1);
@@ -8493,9 +8528,10 @@ lh.prototype.__defineGetter__("sliceWidth", v("Tc"));
 lh.prototype.__defineGetter__("sliceHeight", v("Qc"));
 lh.prototype.__defineSetter__("radiological", ca("sg"));
 w = lh.prototype;
+//X.renderer2D的init方法
 w.Ca = function() {
     this.Qa || m(Error("No 2D orientation set."));
-    lh.u.Ca.call(this, "2d");
+    lh.u.Ca.call(this, "2d"); //调用父类的init方法
     this.a.fillStyle = "rgba(50,50,50,0)";
     this.a.fillRect(0, 0, this.na.width, this.na.height);
     this.Vd = de("canvas");
@@ -8517,6 +8553,7 @@ w.update = function(a) {
     this.ub(a);
     this.Je = -1
 };
+//X.renderer2D.prototype.update_()
 w.ub = function(a) {
     lh.u.ub.call(this, a);
     var b = u;
@@ -8540,6 +8577,7 @@ w.ub = function(a) {
                 return
             }
             this.Fa = "X" == this.Qa ? 0 : "Y" == this.Qa ? 1 : 2;
+            debugger;
             this.bb = a.c[this.Fa].c;
             d = t;
             d = 0 == this.Fa ? a.indexX: 1 == this.Fa ? a.indexY: a.indexZ;
@@ -8605,6 +8643,7 @@ w.Ih = function(a, b) {
     j = j + e * this.xb;
     return a > n && a < n + h && b > j && b < j + l ? (k = (a - n) / h * f, e = (b - j) / l * g, l = d.ei[4], "X" == this.Qa ? (j = f - k, k = e, e = j) : "Y" == this.Qa ? k = f - k: "Z" == this.Qa && (k = f - k, e = g - e), k = d.di + k * d.Vc, e = d.Yh + e * d.Gc, k = Qc(k, e, l, 1), f = Rc(), cd(d.Rh, k, f), f = [Math.floor(f[0]), Math.floor(f[1]), Math.floor(f[2])], g = Rc(), cd(d.Sh, k, g), d = Math.round((c.b[0].i[0] * g[0] + c.b[0].i[1] * g[1] + c.b[0].i[2] * g[2] + c.b[0].Te) / c.b[0].Sc), d >= c.b[0].p ? d = c.b[0].p - 1 : 0 > d && (d = 0), k = Math.round((c.b[1].i[0] * g[0] + c.b[1].i[1] * g[1] + c.b[1].i[2] * g[2] + c.b[1].Te) / c.b[1].Sc), k >= c.b[1].p ? k = c.b[1].p - 1 : 0 > k && (k = 0), e = Math.round((c.b[2].i[0] * g[0] + c.b[2].i[1] * g[1] + c.b[2].i[2] * g[2] + c.b[2].Te) / c.b[2].Sc), e >= c.b[2].p ? e = c.b[2].p - 1 : 0 > e && (e = 0), [[d, k, e], [f[0], f[1], f[2]], [g[0], g[1], g[2]]]) : t
 };
+//X.renderer2D.prototype.render_
 w.dc = function(a, b) {
     lh.u.dc.call(this, a, b);
     if (0 != this.pb.I.length) {
@@ -8661,6 +8700,7 @@ w.dc = function(a, b) {
                 "X" == this.Qa ? (E[d] = J[0], E[d + 1] = J[1], E[d + 2] = J[2], E[d + 3] = J[3], I[d] = f[0], I[d + 1] = f[1], I[d + 2] = f[2], I[d + 3] = f[3]) : "Y" == this.Qa ? (V = Math.floor(d / (4 * y)), V = 4 * V * y + (4 * (y - 1) - (d - 4 * V * y)), E[V] = J[0], E[V + 1] = J[1], E[V + 2] = J[2], E[V + 3] = J[3], I[V] = f[0], I[V + 1] = f[1], I[V + 2] = f[2], I[V + 3] = f[3]) : (V = N - 1 - d, E[V - 3] = J[0], E[V - 2] = J[1], E[V - 1] = J[2], E[V] = J[3], I[V - 3] = f[0], I[V - 2] = f[1], I[V - 1] = f[2], I[V] = f[3]);
                 d += 4
             } while ( d < N );
+            debugger;
             F.putImageData(H, 0, 0);
             G.putImageData(B, 0, 0);
             this.Je = e;
